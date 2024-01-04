@@ -6,9 +6,8 @@ import { safeParse } from "valibot";
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 
-export const handler = errorBoundariesHandler(async (event) => {
+export const handler = errorBoundariesHandler(async (event, context) => {
 
-    let params: PutCommand | undefined;
 
     const jsonBody = JSON.parse(event.body ?? "{}");
     const parseResult = safeParse(CreateNoteSchema, jsonBody);
@@ -20,12 +19,14 @@ export const handler = errorBoundariesHandler(async (event) => {
         }
     }
 
-    params = new PutCommand({
+
+
+    const params = new PutCommand({
         TableName: Table.Notes.tableName,
         Item: {
             content: parseResult.output.content,
             attachment: parseResult.output.attachment,
-            userId: "123",
+            userId: context.identity?.cognitoIdentityId,
             noteId: v4(),
             createdAt: Date.now()
         }

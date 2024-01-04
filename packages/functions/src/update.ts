@@ -5,7 +5,7 @@ import { dynamoDb } from "@notes/core/dynamoDb";
 import { Table } from "sst/node/table";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler"
 
-export const handler = errorBoundariesHandler(async (event) => {
+export const handler = errorBoundariesHandler(async (event, context) => {
 
     const jsonBody = JSON.parse(event.body ?? "{}");
 
@@ -30,7 +30,7 @@ export const handler = errorBoundariesHandler(async (event) => {
     await dynamoDb.update({
         TableName: Table.Notes.tableName,
         Key: {
-            userId: "123",
+            userId: context.identity?.cognitoIdentityId,
             noteId: parseQueryResult.output.id
         },
         UpdateExpression: 'SET content = :content, attachment = :attachment',

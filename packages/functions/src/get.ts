@@ -4,7 +4,7 @@ import { Table } from "sst/node/table";
 import { dynamoDb } from "@notes/core/dynamoDb"
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 
-export const handler = errorBoundariesHandler(async (event) => {
+export const handler = errorBoundariesHandler(async (event, context) => {
     const parseResult = safeParse(QueryWithNoteIdSchema, event.pathParameters);
     if (!parseResult.success) {
         return {
@@ -15,7 +15,7 @@ export const handler = errorBoundariesHandler(async (event) => {
 
     const response = await dynamoDb.get({
         Key: {
-            userId: '123',
+            userId: context.identity?.cognitoIdentityId,
             noteId: parseResult.output.id
         },
         TableName: Table.Notes.tableName

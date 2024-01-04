@@ -4,11 +4,11 @@ import { ApiHandler } from "sst/node/api";
 import { Table } from "sst/node/table";
 
 
-export const handler = errorBoundariesHandler(async () => {
+export const handler = errorBoundariesHandler(async (_, context) => {
     const response = await dynamoDb.query({
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {
-            ":userId": "123"
+            ":userId": context.identity?.cognitoIdentityId
         },
         TableName: Table.Notes.tableName
     });
