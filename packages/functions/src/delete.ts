@@ -1,8 +1,8 @@
+import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 import { safeParse } from "valibot";
 import { QueryWithNoteIdSchema } from "./ValibotSchema";
+import { dynamoDb } from "@notes/core/dynamoDb";
 import { Table } from "sst/node/table";
-import { dynamoDb } from "@notes/core/dynamoDb"
-import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 
 export const handler = errorBoundariesHandler(async (event) => {
     const parseResult = safeParse(QueryWithNoteIdSchema, event.pathParameters);
@@ -13,16 +13,15 @@ export const handler = errorBoundariesHandler(async (event) => {
         }
     }
 
-    const response = await dynamoDb.get({
+    await dynamoDb.delete({
+        TableName: Table.Notes.tableName,
         Key: {
-            userId: '123',
+            userId: "123",
             noteId: parseResult.output.id
-        },
-        TableName: Table.Notes.tableName
+        }
     });
-    return {
-        statusCode: 200,
-        body: JSON.stringify(response.Item)
-    }
 
+    return {
+        statusCode: 200
+    }
 })

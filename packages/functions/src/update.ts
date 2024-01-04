@@ -3,7 +3,7 @@ import { safeParse } from "valibot";
 import { QueryWithNoteIdSchema, UpdateNoteSchema } from "./ValibotSchema";
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { Table } from "sst/node/table";
-import { errorBoundariesHandler } from "@notes/core/noteHandler"
+import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler"
 
 export const handler = errorBoundariesHandler(async (event) => {
 

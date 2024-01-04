@@ -4,7 +4,7 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { CreateNoteSchema } from "./ValibotSchema";
 import { safeParse } from "valibot";
 import { dynamoDb } from "@notes/core/dynamoDb";
-import { errorBoundariesHandler } from "@notes/core/noteHandler";
+import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 
 export const handler = errorBoundariesHandler(async (event) => {
 
