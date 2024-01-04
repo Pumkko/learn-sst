@@ -2,9 +2,9 @@
 function App() {
 
 
-  return <div>
+  return <h1>
     Bonjour
-  </div>
+  </h1>
 
 }
 
