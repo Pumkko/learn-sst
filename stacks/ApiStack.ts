@@ -13,7 +13,8 @@ export function ApiStack({ stack }: StackContext) {
         },
         routes: {
             "POST /notes": "packages/functions/src/create.handler",
-            "GET /notes/{id}": "packages/functions/src/get.handler"
+            "GET /notes/{id}": "packages/functions/src/get.handler",
+            "GET /notes": "packages/functions/src/list.handler"
         }
     });
 
