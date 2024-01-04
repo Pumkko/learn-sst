@@ -26,10 +26,19 @@ importers:
 
   packages/core:
     dependencies:
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+      '@aws-sdk/client-dynamodb':
+        specifier: ^3.484.0
+        version: 3.484.0
+      '@aws-sdk/lib-dynamodb':
+        specifier: ^3.485.0
+        version: 3.485.0(@aws-sdk/client-dynamodb@3.484.0)
+      aws-lambda:
+        specifier: ^1.0.7
+        version: 1.0.7
     devDependencies:
+      '@types/aws-lambda':
+        specifier: ^8.10.130
+        version: 8.10.130
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
@@ -6322,3 +6331,4 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: true

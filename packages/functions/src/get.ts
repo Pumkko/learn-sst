@@ -4,9 +4,7 @@ import { safeParse } from "valibot";
 import { GetNoteSchema } from "./ValibotSchema";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { Table } from "sst/node/table";
-
-
-const dynamoDb = new DynamoDBClient();
+import { dynamoDb } from "@notes/core/dynamoDb"
 
 export const handler = ApiHandler(async (event) => {
 
@@ -19,10 +17,8 @@ export const handler = ApiHandler(async (event) => {
         }
     }
 
-    const client = DynamoDBDocument.from(dynamoDb);
-
     try {
-        const response = await client.get({
+        const response = await dynamoDb.get({
             Key: {
                 userId: '123',
                 noteId: parseResult.output.id

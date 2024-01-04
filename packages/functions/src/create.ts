@@ -1,12 +1,10 @@
 import { Table } from "sst/node/table";
 import { v4 } from "uuid";
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb'
 import { ApiHandler } from "sst/node/api";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { CreateNoteSchema } from "./ValibotSchema";
 import { safeParse } from "valibot";
-
-const dynamoDb = new DynamoDBClient()
+import { dynamoDb } from "@notes/core/dynamoDb";
 
 export const handler = ApiHandler(async (event) => {
 
@@ -33,11 +31,8 @@ export const handler = ApiHandler(async (event) => {
         }
     })
 
-
-    const docClient = DynamoDBDocumentClient.from(dynamoDb);
-
     try {
-        await docClient.send(params);
+        await dynamoDb.send(params);
         return {
             statusCode: 200,
             body: JSON.stringify(params.input.Item)
