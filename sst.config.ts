@@ -6,7 +6,7 @@ import { AuthStack } from "./stacks/AuthStack";
 export default {
   config(_input) {
     return {
-      name: "notes",
+      name: "pumkko-learn-sst-note",
       region: "us-east-1",
     };
   },
