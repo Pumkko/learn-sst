@@ -15,5 +15,4 @@ it("StorageStack", async () => {
     template.hasResourceProperties("AWS::DynamoDB::Table", {
         BillingMode: 'PAY_PER_REQUEST'
     })
-
 })
