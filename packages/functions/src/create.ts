@@ -1,12 +1,12 @@
 import { Table } from "sst/node/table";
 import { v4 } from "uuid";
-import { ApiHandler } from "sst/node/api";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { CreateNoteSchema } from "./ValibotSchema";
 import { safeParse } from "valibot";
 import { dynamoDb } from "@notes/core/dynamoDb";
+import { errorBoundariesHandler } from "@notes/core/noteHandler";
 
-export const handler = ApiHandler(async (event) => {
+export const handler = errorBoundariesHandler(async (event) => {
 
     let params: PutCommand | undefined;
 
@@ -31,25 +31,12 @@ export const handler = ApiHandler(async (event) => {
         }
     })
 
-    try {
-        await dynamoDb.send(params);
-        return {
-            statusCode: 200,
-            body: JSON.stringify(params.input.Item)
-        }
+    await dynamoDb.send(params);
+    return {
+        statusCode: 200,
+        body: JSON.stringify(params.input.Item)
     }
-    catch (error: unknown) {
-        let message;
-        if (error instanceof Error) {
-            message = error.message;
-        } else {
-            message = String(error);
-        }
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: message }),
-        };
-    }
+
 });
 
 

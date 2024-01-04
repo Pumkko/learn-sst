@@ -1,10 +1,18 @@
-import { endsWith, minLength, nonNullish, object, optional, required, string, safeParse, uuid } from "valibot";
+import { endsWith, minLength, nonNullish, object, optional, required, string, safeParse, uuid, nullish } from "valibot";
+
+const contentBaseSchema = string([minLength(3)]);
+const attachmentBaseSchema = string([endsWith('.jpg', "Must be a JPG file")])
 
 export const CreateNoteSchema = object({
-    content: nonNullish(string([minLength(3)])),
-    attachment: string([endsWith('.jpg', "Must be a JPG file")])
+    content: nonNullish(contentBaseSchema),
+    attachment: nonNullish(attachmentBaseSchema)
 });
 
-export const GetNoteSchema = object({
+export const QueryWithNoteIdSchema = object({
     id: string([uuid()])
+})
+
+export const UpdateNoteSchema = object({
+    content: nonNullish(contentBaseSchema),
+    attachment: nonNullish(attachmentBaseSchema)
 })
