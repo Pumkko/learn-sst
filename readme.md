@@ -1,7 +1,16 @@
 # What did i learn
 
-## SST Guide is guide is great but not up to date
+## Followed the SST Guide
 Followed this guide to learn : https://sst.dev/guide.html
+It's honestly awesome, what they did with that guide is really amzing, a full stack app step by step with auth, secrets management...
+
+Copy pasted most of the code about bootstrap because i did not care about that but otherwise i tried to understand I 
+- Used Amplify V6 and not V5 as they tell you to use in the guide (`npm install amplify@v5`), took some digging when V6 had a breaking change but nothing crazy.
+- Copy pasted the code for Bootstrap and everything but later i'd like to :
+    - Use Tanstack Form
+    - Use Tanstack router
+
+## SST Guide is guide is great but not up to date
 It's great, really, but not up to date like this part : https://sst.dev/chapters/add-an-api-to-create-a-note.html
 just does not work with the news SDK V3. I had to change 
 
