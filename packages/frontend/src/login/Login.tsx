@@ -6,10 +6,12 @@ import { signIn } from 'aws-amplify/auth';
 
 import "./Login.css";
 import { AuthContext } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const nav = useNavigate();
 
     const authContext = useContext(AuthContext);
 
@@ -27,6 +29,7 @@ export function Login() {
             });
             console.log(signInResult);
             authContext.setIsAuthenticated(signInResult.isSignedIn);
+            nav("/");
         } catch (error) {
             // Prints the full error
             console.error(error);
@@ -37,6 +40,8 @@ export function Login() {
             }
         }
     }
+
+
 
     return (
         <div className="Login">

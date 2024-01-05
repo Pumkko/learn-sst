@@ -5,17 +5,21 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { signOut } from 'aws-amplify/auth'
+import { useNavigate } from "react-router-dom";
 
 function App() {
 
   const authContext = useContext(AuthContext);
 
+  const nav = useNavigate();
+
   const handleLogout = async () => {
     await signOut();
     authContext.setIsAuthenticated(false);
+    nav("/login");
   }
 
-  if(authContext.isAuthenticating){
+  if (authContext.isAuthenticating) {
     return <>Loading the app</>
   }
 
