@@ -6,6 +6,8 @@ import "./SignUp.css";
 import { useFormFields } from "../lib/formField";
 import { AuthContext } from "../AuthContext";
 import LoaderButton from "../common/LoaderButton";
+import { SignUpOutput, confirmSignUp, signIn, signUp } from "aws-amplify/auth";
+import { onError } from "../lib/error";
 
 export default function Signup() {
     const [fields, handleFieldChange] = useFormFields({
@@ -16,9 +18,9 @@ export default function Signup() {
     });
 
     const nav = useNavigate();
-    const { isAuthenticating } = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
-    const [newUser, setNewUser] = useState<null | string>(null);
+    const [newUser, setNewUser] = useState<null | SignUpOutput>(null);
 
     function validateForm() {
         return (
@@ -35,7 +37,16 @@ export default function Signup() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true);
-        setNewUser("test");
+        try {
+            const newUserOutput = await signUp({
+                username: fields.email,
+                password: fields.password
+            });
+            setNewUser(newUserOutput);
+        } catch (error) {
+            onError(error);
+        }
+
         setIsLoading(false);
     }
 
@@ -44,6 +55,21 @@ export default function Signup() {
     ) {
         event.preventDefault();
         setIsLoading(true);
+        try {
+            await confirmSignUp({
+                username: fields.email,
+                confirmationCode: fields.confirmationCode
+            });
+            await signIn({
+                username: fields.email,
+                password: fields.password
+            });
+            authContext.setIsAuthenticated(true);
+            nav("/");
+        } catch (e) {
+            onError(e);
+        }
+        setIsLoading(false);
     }
 
     function renderConfirmationForm() {
