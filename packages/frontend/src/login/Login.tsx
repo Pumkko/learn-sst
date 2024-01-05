@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
+import { signIn } from 'aws-amplify/auth';
+
 import "./Login.css";
+import { AuthContext } from "../AuthContext";
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const authContext = useContext(AuthContext);
+
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        try {
+            const signInResult = await signIn({
+                username: email,
+                password
+            });
+            console.log(signInResult);
+            authContext.setIsAuthenticated(signInResult.isSignedIn);
+        } catch (error) {
+            // Prints the full error
+            console.error(error);
+            if (error instanceof Error) {
+                alert(error.message);
+            } else {
+                alert(String(error));
+            }
+        }
     }
 
     return (

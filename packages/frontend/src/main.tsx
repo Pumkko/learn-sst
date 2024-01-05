@@ -6,6 +6,7 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 import { Amplify } from 'aws-amplify'
 import { CONFIG } from './config.ts';
+import { AuthContextProvider } from './AuthContext.tsx';
 
 Amplify.configure({
   Auth: {
@@ -35,7 +36,9 @@ Amplify.configure({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter >
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter >
   </React.StrictMode>,
 )

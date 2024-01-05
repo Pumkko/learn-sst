@@ -2,8 +2,18 @@ import { Navbar } from "react-bootstrap";
 import { RouterOutlet } from "./Routes";
 import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
+import { signOut } from 'aws-amplify/auth'
 
 function App() {
+
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    await signOut();
+    authContext.setIsAuthenticated(false);
+  }
 
 
   return (
@@ -15,17 +25,21 @@ function App() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav activeKey={window.location.pathname}>
-            <LinkContainer to="/signup">
-              <Nav.Link href="/signup">Signup</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/login">
-              <Nav.Link href="/login">Login</Nav.Link>
-            </LinkContainer>
+            {
+              authContext.isAuthenticated ? (<Nav.Link onClick={handleLogout}>Logout</Nav.Link>) : (
+                <>
+                  <LinkContainer to="/signup">
+                    <Nav.Link href="/signup">Signup</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Nav.Link href="/login">Login</Nav.Link>
+                  </LinkContainer></>)
+            }
           </Nav>
         </Navbar.Collapse>
-      </Navbar>
+      </Navbar >
       <RouterOutlet />
-    </div>
+    </div >
   );
 
 }

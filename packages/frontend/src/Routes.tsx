@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./container/Home";
+import { Home } from "./home/Home";
 import { NotFound } from "./notFound/NotFound";
-import { Login } from "./container/Login";
+import { Login } from "./login/Login";
 
 export function RouterOutlet() {
     return (
