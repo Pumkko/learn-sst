@@ -2,7 +2,7 @@ import { Navbar } from "react-bootstrap";
 import { RouterOutlet } from "./Routes";
 import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { signOut } from 'aws-amplify/auth'
 
@@ -15,6 +15,9 @@ function App() {
     authContext.setIsAuthenticated(false);
   }
 
+  if(authContext.isAuthenticating){
+    return <>Loading the app</>
+  }
 
   return (
     <div className="App container py-3">
