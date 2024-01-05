@@ -2,7 +2,7 @@ import { Navbar } from "react-bootstrap";
 import { RouterOutlet } from "./Routes";
 import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import { signOut } from 'aws-amplify/auth'
 import { useNavigate } from "react-router-dom";

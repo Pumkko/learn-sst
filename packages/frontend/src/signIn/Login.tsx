@@ -1,23 +1,22 @@
 import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack";
-import Button from "react-bootstrap/Button";
 import { signIn } from 'aws-amplify/auth';
 
 import "./Login.css";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
-import { BsArrowRepeat } from "react-icons/bs";
 import { onError } from "../lib/error";
 import { useFormFields } from "../lib/formField";
+import LoaderButton from "../common/LoaderButton";
 
 export function Login() {
 
-    
+
     const [fields, handleFieldChange] = useFormFields({
         email: "",
         password: "",
-      });
+    });
 
     const [isLoading, setIsLoading] = useState(false);
     const nav = useNavigate();
@@ -26,7 +25,7 @@ export function Login() {
 
     function validateForm() {
         return fields.email.length > 0 && fields.password.length > 0;
-      }
+    }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -72,10 +71,9 @@ export function Login() {
                             onChange={handleFieldChange}
                         />
                     </Form.Group>
-                    <Button size="lg" className="LoaderButton" type="submit" disabled={!validateForm()}>
-                        {isLoading && <BsArrowRepeat className="spinning" />}
+                    <LoaderButton isLoading={isLoading} size="lg" type="submit" disabled={!validateForm()}>
                         Login
-                    </Button>
+                    </LoaderButton>
                 </Stack>
             </Form>
         </div>
