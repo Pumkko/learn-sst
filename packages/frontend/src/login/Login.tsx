@@ -9,18 +9,24 @@ import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { BsArrowRepeat } from "react-icons/bs";
 import { onError } from "../lib/error";
+import { useFormFields } from "../lib/formField";
 
 export function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
+    
+    const [fields, handleFieldChange] = useFormFields({
+        email: "",
+        password: "",
+      });
+
     const [isLoading, setIsLoading] = useState(false);
     const nav = useNavigate();
 
     const authContext = useContext(AuthContext);
 
     function validateForm() {
-        return email.length > 0 && password.length > 0;
-    }
+        return fields.email.length > 0 && fields.password.length > 0;
+      }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -28,8 +34,8 @@ export function Login() {
         setIsLoading(true);
         try {
             const signInResult = await signIn({
-                username: email,
-                password
+                username: fields.email,
+                password: fields.password
             });
             console.log(signInResult);
             authContext.setIsAuthenticated(signInResult.isSignedIn);
@@ -53,8 +59,8 @@ export function Login() {
                             autoFocus
                             size="lg"
                             type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={fields.email}
+                            onChange={handleFieldChange}
                         />
                     </Form.Group>
                     <Form.Group controlId="password">
@@ -62,8 +68,8 @@ export function Login() {
                         <Form.Control
                             size="lg"
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={fields.password}
+                            onChange={handleFieldChange}
                         />
                     </Form.Group>
                     <Button size="lg" className="LoaderButton" type="submit" disabled={!validateForm()}>
