@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./container/Home";
-import { NotFound } from "./NotFound";
+import { NotFound } from "./notFound/NotFound";
 
 export function RouterOutlet() {
     return (
