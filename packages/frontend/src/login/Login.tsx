@@ -7,10 +7,13 @@ import { signIn } from 'aws-amplify/auth';
 import "./Login.css";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import { BsArrowRepeat } from "react-icons/bs";
+import { onError } from "../lib/error";
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const nav = useNavigate();
 
     const authContext = useContext(AuthContext);
@@ -22,6 +25,7 @@ export function Login() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
+        setIsLoading(true);
         try {
             const signInResult = await signIn({
                 username: email,
@@ -31,14 +35,10 @@ export function Login() {
             authContext.setIsAuthenticated(signInResult.isSignedIn);
             nav("/");
         } catch (error) {
-            // Prints the full error
-            console.error(error);
-            if (error instanceof Error) {
-                alert(error.message);
-            } else {
-                alert(String(error));
-            }
+            onError(error);
         }
+
+        setIsLoading(false);
     }
 
 
@@ -66,7 +66,8 @@ export function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button size="lg" type="submit" disabled={!validateForm()}>
+                    <Button size="lg" className="LoaderButton" type="submit" disabled={!validateForm()}>
+                        {isLoading && <BsArrowRepeat className="spinning" />}
                         Login
                     </Button>
                 </Stack>

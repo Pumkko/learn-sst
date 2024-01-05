@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { onError } from "./lib/error";
 
 export interface AuthContextProps {
     isAuthenticated: boolean;
@@ -24,11 +25,11 @@ export function AuthContextProvider(props: { children: ReactNode }) {
 
     async function onLoad() {
         try {
-            const test = await fetchAuthSession();
+            await fetchAuthSession();
             setIsAuthenticated(true);
         } catch (e) {
             if (e !== "No current user") {
-                alert(e);
+                onError(e);
             }
         }
 
