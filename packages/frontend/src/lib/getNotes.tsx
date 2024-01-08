@@ -10,6 +10,7 @@ import { NoteArraySchema } from '../../../core/src/ValibotNoteSchema'
 export function useNotes() {
     return useQuery({
         queryKey: ["notes"],
+        staleTime: 1 * 1000 * 60 * 60,
         queryFn: async () => {
             const response = await get({
                 apiName: "notes",
