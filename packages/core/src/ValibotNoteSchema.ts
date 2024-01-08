@@ -26,8 +26,7 @@ export const NoteSchema =
         attachment: nonNullish(attachmentBaseSchema),
         createdAt: number(),
         noteId: string([uuid()]),
-        userId: string(),
-        id: string()
+        userId: string()
     });
 
 export const NoteArraySchema = array(NoteSchema)
