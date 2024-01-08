@@ -15,9 +15,8 @@ export function ApiStack({ stack }: StackContext) {
             authorizer: "iam"
         },
         cors: {
-            allowOrigins: ['*'],
-            allowMethods: ['ANY'],
-            maxAge: "1 day",
+            allowOrigins: ["*"],
+            allowMethods: ["ANY"],
         },
         routes: {
             "POST /notes": "packages/functions/src/create.handler",

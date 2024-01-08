@@ -5,10 +5,9 @@ import { safeParse } from "valibot";
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
 import { CreateNoteSchema } from "../../core/src/ValibotNoteSchema"
+import { APIGatewayEventRequestContextV2WithAuthorizer, APIGatewayProxyEventV2WithIAMAuthorizer, APIGatewayProxyEventV2WithLambdaAuthorizer } from "aws-lambda";
 
 export const handler = errorBoundariesHandler(async (event, context) => {
-
-
     const jsonBody = JSON.parse(event.body ?? "{}");
     const parseResult = safeParse(CreateNoteSchema, jsonBody);
 
