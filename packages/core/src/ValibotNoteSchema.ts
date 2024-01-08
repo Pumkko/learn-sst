@@ -1,4 +1,4 @@
-import { endsWith, minLength, nonNullish, object, optional, required, string, safeParse, uuid, nullish, Input, number, array } from "valibot";
+import { endsWith, minLength, nonNullish, object, string, uuid, Input, number, array } from "valibot";
 
 const contentBaseSchema = string([minLength(3)]);
 const attachmentBaseSchema = string([endsWith('.jpg', "Must be a JPG file")])

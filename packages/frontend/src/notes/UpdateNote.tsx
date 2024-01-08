@@ -31,8 +31,6 @@ export function UpdateNote(props: UpdateNoteProps) {
     }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        let attachment;
-
         event.preventDefault();
 
         if (file.current && file.current.size > CONFIG.MAX_ATTACHMENT_SIZE) {
