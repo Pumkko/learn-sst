@@ -1,4 +1,4 @@
-import { endsWith, minLength, nonNullish, object, optional, required, string, safeParse, uuid, nullish } from "valibot";
+import { endsWith, minLength, nonNullish, object, optional, required, string, safeParse, uuid, nullish, Input } from "valibot";
 
 const contentBaseSchema = string([minLength(3)]);
 const attachmentBaseSchema = string([endsWith('.jpg', "Must be a JPG file")])
@@ -7,6 +7,8 @@ export const CreateNoteSchema = object({
     content: nonNullish(contentBaseSchema),
     attachment: nonNullish(attachmentBaseSchema)
 });
+
+export type CreateNote = Input<typeof CreateNoteSchema>;
 
 export const QueryWithNoteIdSchema = object({
     id: string([uuid()])

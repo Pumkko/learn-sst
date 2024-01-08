@@ -3,6 +3,7 @@ import { Home } from "./home/Home";
 import { NotFound } from "./notFound/NotFound";
 import { Login } from "./signIn/Login";
 import Signup from "./signUp/SignUp";
+import { NewNote } from "./notes/NewNote";
 
 export function RouterOutlet() {
     return (
@@ -11,6 +12,7 @@ export function RouterOutlet() {
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />}/>
             <Route path="/signup" element={<Signup />} />
+            <Route path="/notes/new" element={<NewNote />} />
         </Routes>
     )
 }
