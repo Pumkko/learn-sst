@@ -38,6 +38,9 @@ importers:
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
+      valibot:
+        specifier: ^0.25.0
+        version: 0.25.0
     devDependencies:
       '@types/aws-lambda':
         specifier: ^8.10.130
@@ -54,6 +57,9 @@ importers:
 
   packages/frontend:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.17.9
+        version: 5.17.9(react@18.2.0)
       aws-amplify:
         specifier: ^6.0.10
         version: 6.0.10
@@ -78,6 +84,9 @@ importers:
       react-router-dom:
         specifier: ^6.21.1
         version: 6.21.1(react-dom@18.2.0)(react@18.2.0)
+      valibot:
+        specifier: ^0.25.0
+        version: 0.25.0
     devDependencies:
       '@types/bootstrap':
         specifier: ^5.2.10
@@ -3819,6 +3828,19 @@ packages:
     resolution: {integrity: sha512-FaruWX6KdudYloq1AHD/4nU+UsMTdNE8CKyrseXWEcgjDAbvkwJg2QGPAnfIJLIWsjZOSPLOAykK6fuYp4vp4A==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@tanstack/query-core@5.17.9:
+    resolution: {integrity: sha512-8xcvpWIPaRMDNLMvG9ugcUJMgFK316ZsqkPPbsI+TMZsb10N9jk0B6XgPk4/kgWC2ziHyWR7n7wUhxmD0pChQw==}
+    dev: false
+
+  /@tanstack/react-query@5.17.9(react@18.2.0):
+    resolution: {integrity: sha512-M5E9gwUq1Stby/pdlYjBlL24euIVuGbWKIFCbtnQxSdXI4PgzjTSdXdV3QE6fc+itF+TUvX/JPTKIwq8yuBXcg==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.17.9
+      react: 18.2.0
     dev: false
 
   /@trpc/server@9.16.0:

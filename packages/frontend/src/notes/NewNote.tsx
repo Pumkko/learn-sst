@@ -5,9 +5,9 @@ import LoaderButton from "../common/LoaderButton";
 import { CONFIG } from "../config";
 import "./NewNote.css"
 import { post } from "aws-amplify/api";
-import { CreateNote } from "../../../functions/src/ValibotSchema"
 import { s3Upload } from "../lib/awsLib";
 import { onError } from "../lib/error";
+import { CreateNote } from "../../../core/src/ValibotNoteSchema";
 
 export function NewNote() {
     const file = useRef<null | File>(null);
@@ -26,7 +26,7 @@ export function NewNote() {
 
     async function createNote(attachmentName: string) {
         const response = await post({
-            apiName: "Api",
+            apiName: "notes",
             path: "/notes",
             options: {
                 body: {

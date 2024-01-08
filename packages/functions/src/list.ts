@@ -1,6 +1,5 @@
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
-import { ApiHandler } from "sst/node/api";
 import { Table } from "sst/node/table";
 
 

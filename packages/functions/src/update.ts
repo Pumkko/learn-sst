@@ -1,9 +1,8 @@
-import { ApiHandler } from "sst/node/api";
 import { safeParse } from "valibot";
-import { QueryWithNoteIdSchema, UpdateNoteSchema } from "./ValibotSchema";
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { Table } from "sst/node/table";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler"
+import { UpdateNoteSchema, QueryWithNoteIdSchema } from "@notes/core/ValibotNoteSchema";
 
 export const handler = errorBoundariesHandler(async (event, context) => {
 

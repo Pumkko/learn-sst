@@ -7,6 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Amplify } from 'aws-amplify'
 import { CONFIG } from './config.ts';
 import { AuthContextProvider } from './AuthContext.tsx';
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
 
 Amplify.configure({
   Auth: {
@@ -33,12 +37,16 @@ Amplify.configure({
   }
 })
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter >
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </QueryClientProvider>
     </BrowserRouter >
   </React.StrictMode>,
 )

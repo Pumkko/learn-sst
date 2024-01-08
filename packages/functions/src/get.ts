@@ -1,8 +1,8 @@
 import { safeParse } from "valibot";
-import { QueryWithNoteIdSchema } from "./ValibotSchema";
 import { Table } from "sst/node/table";
 import { dynamoDb } from "@notes/core/dynamoDb"
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
+import { QueryWithNoteIdSchema } from "@notes/core/ValibotNoteSchema";
 
 export const handler = errorBoundariesHandler(async (event, context) => {
     const parseResult = safeParse(QueryWithNoteIdSchema, event.pathParameters);

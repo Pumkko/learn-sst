@@ -30,7 +30,8 @@ export function ApiStack({ stack }: StackContext) {
     });
 
     stack.addOutputs({
-        ApiEndpoint: api.url
+        ApiEndpoint: api.url,
+        ApiName: api.id
     });
 
     return {

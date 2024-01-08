@@ -1,10 +1,10 @@
 import { Table } from "sst/node/table";
 import { v4 } from "uuid";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { CreateNoteSchema } from "./ValibotSchema";
 import { safeParse } from "valibot";
 import { dynamoDb } from "@notes/core/dynamoDb";
 import { errorBoundariesHandler } from "@notes/core/errorBoundariesHandler";
+import { CreateNoteSchema } from "../../core/src/ValibotNoteSchema"
 
 export const handler = errorBoundariesHandler(async (event, context) => {
 
@@ -18,8 +18,6 @@ export const handler = errorBoundariesHandler(async (event, context) => {
             body: JSON.stringify(parseResult.issues)
         }
     }
-
-
 
     const params = new PutCommand({
         TableName: Table.Notes.tableName,
